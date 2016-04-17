@@ -48,8 +48,118 @@ First Island in DTD ie 'D' occurs alphabatically before 'H' and 'Z')
 #include <stdlib.h>
 #include <stdio.h>
 
+char* largest_common_route(char** res,int size){
+	int i=0, j=0, temp=0, *cost,*len,k=0,temp_cost=0;
+	cost = (int*)malloc(size*sizeof(int));
+	len = (int*)malloc(size*sizeof(int));
+	while (res[i] != '\0'){
+		j = 0;
+		while (res[i][j] != '\0'){
+			j++;
+		}
+		len[i] = j;
+		if (j > temp){
+			temp = j;
+		}
+		i++;
+	}
+	for (k = 0; k <= i; k++){
+		if (temp == len[k]){
+			for (j = 0; j < len[k]; j++){
+				temp_cost = temp_cost + res[k][j]-'A'-1;
+			}
+			if (temp_cost > cost[k]){
+				cost[k] = temp_cost;
+			}
+		}
+	}
+	temp = cost[0];
+	j = 0;
+	int index;
+	for (k = 0; k < i; k++){
+		if (temp>cost[k]){
+			temp = cost[k];
+			index = k;
+			j = 0;
+		}
+		if (temp == cost[k]){
+			j++;
+		}
+	}
+	if (j == 0){
+		return res[index];
+	}
+	else{
+		if (temp == 0){
+			return NULL;
+		}
+		else{
+			i = 0;
+			while (temp == cost[i]){
+				i++;
+			}
+			j = i;
+			while (temp == cost[j]){
+				j--;
+			}
+			if (res[i][0] > res[j][0]){
+				return res[i];
+			}
+			else{
+				return res[j];
+			}
+		}
+	}
+}
 
 char * find_common_route(char * hacklist, char *codelist, int *cost){
-	return NULL;
+	int i, j, len1 = 0, len2 = 0, temp = *cost, k, p = 0, l1, l2;
+	char **res;
+	if ((hacklist != NULL) && (codelist != NULL)){
+		if (*cost <= 0){
+			return NULL;
+		}
+		else{
+			while (hacklist[len1] != '\0'){
+				len1++;
+			}
+			while (codelist[len2] != '\0'){
+				len2++;
+			}
+			if (len1 >= len2){
+				res = (char**)malloc(len2*sizeof(char));
+				for (i = 0; i < len2; i++){
+					res[i] = (char*)malloc(len2*sizeof(char));
+				}
+			}
+			else{
+				res = (char**)malloc(len1*sizeof(char));
+				for (i = 0; i < len1; i++){
+					res[i] = (char*)malloc(len1*sizeof(char));
+				}
+			}
+			for (i = 0; i < len1; i++){
+				for (j = 0; j < len2; j++){
+					if (hacklist[i] == codelist[j]){
+						k = 0;
+						l1 = i, l2 = j;
+						while (hacklist[l1] == codelist[l2]){
+							res[p][k] = hacklist[l1];
+							k++;
+							l1++;
+							l2++;
+						}
+						res[p][k] = '\0';
+						p++;
+					}
+				}
+			}
+			res[p] = '\0';
+			return largest_common_route(res, p);
+		}
+	}
+		else{
+		return NULL;
+	}
 }
 

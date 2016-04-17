@@ -65,6 +65,21 @@ Note : There will be only One Maximum Jumps path .[If there are multiple ,Return
 #include <stdlib.h>
 #include <stdio.h>
 
-int * pillars_max_jumps(int *blocks, int n, int m,int *jumps_count){
-	return NULL;
+int * pillars_max_jumps(int *blocks, int n, int m, int *jumps_count){
+	int *res;
+	if ((n > 0) && (m > 0)){
+		if (blocks == NULL){
+			return NULL;
+		}
+		else{
+			if (*jumps_count <= 0){
+				return NULL;
+			}
+			else{
+			}
+		}
+	}
+	else{
+		return NULL;
+	}
 }

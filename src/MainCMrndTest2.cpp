@@ -46,6 +46,25 @@ struct node{
 
 //Helper Functions End
 
+struct oddevennode * createNode(int num) {
+	struct oddevennode *newNode = (struct oddevennode *)malloc(sizeof(struct oddevennode));
+	newNode->data = num;
+	newNode->next = NULL;
+	newNode->random = NULL;
+	return newNode;
+}
+
+void addNode(struct oddevennode **head, int data){
+	struct oddevennode * cur = createNode(data);
+	if (*head == NULL){
+		*head = cur;
+	}
+	else{
+		struct oddevennode *temp = *head;
+		cur->next = temp;
+		*head = cur;
+	}
+}
 int main(){
 	
 	//Test Odd Even SLL
